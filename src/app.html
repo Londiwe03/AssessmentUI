@@ -1,0 +1,52 @@
+<template>
+  <loading-indicator loading.bind="loading"></loading-indicator>
+  <div class="container">
+    <error-banner></error-banner>
+    <form class.bind="formReady" submit.delegate="submit()">
+      <div class="ml-sm-auto mr-sm-auto col-sm-8">
+        <div class="card bg-light">
+          <h2 class="card-header text-light" class.bind="formValidStyle">
+            Sentencer
+          </h2>
+          <div class="card-body">
+            <div class="text-center">
+              <label class="col-form-label required">Select Word Type: </label>
+              <button style="margin:2px;" repeat.for="wordType of wordTypes" disabled.bind="loading"
+                click.delegate="getWordsByType(wordType)">${wordType}
+              </button>
+              &emsp;
+            </div>
+
+            <div class="dropdown-menu" style="margin-top:10px;">
+              <a class="dropdown-item mt-2" style="margin:20px;" repeat.for="word of newWordList"
+                style="cursor: pointer" click.delegate="addWordToSentence(word)">
+                &nbsp; ${word}
+              </a>
+            </div>
+            <div class="form-group">
+              <label class="col-form-label required mt-2">Sentence</label>
+              <input type="text" class="form-control" size="100" disabled.bind="true" value.bind="sentence">
+              <div class="form-group row justify-content-end">
+                <button type="submit" style="margin-top:20px;" class="btn btn-primary mr-1"
+                  click.delegate="submit()">Submit Sentence</button>
+              </div>
+            </div>
+            <table class="table" style="margin-top:20px;">
+              <thead>
+                <tr>
+                  <th>Sentence History</th>
+                </tr>
+              </thead>
+              <tbody repeat.for="list of sentenceList">
+                <tr>
+                  <td> - ${list.data}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  </div>
+  </form>
+  </div>
+</template>
